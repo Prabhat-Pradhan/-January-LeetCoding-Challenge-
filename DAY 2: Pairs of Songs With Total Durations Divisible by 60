@@ -1,0 +1,41 @@
+// CODE IS IN C++ LANGUAGE
+
+//You are given a list of songs where the ith song has a duration of time[i] seconds.
+
+Return the number of pairs of songs for which their total duration in seconds is divisible by 60. Formally, we want the number of indices i, j such that i < j with (time[i] + time[j]) % 60 == 0.
+
+// USING HASHMAP
+
+class Solution {
+public:
+   int numPairsDivisibleBy60(vector<int>& arr) {
+        
+        int n = arr.size();
+        
+        int res = 0;
+        
+        for(int i = 0; i < n; i++)
+        {
+            arr[i] = arr[i] % 60 ;
+        }
+        
+        unordered_map < int, int> mp;
+        
+        for(int i = 0; i < n; i++)
+        {
+            if(arr[i] == 0)
+            {
+                res += mp[0] ;
+            }
+            
+            else if(mp.count(60 - arr[i]))
+            {
+                res += mp[60 - arr[i]] ;
+            }
+            
+            mp[arr[i]] ++ ;
+        }
+        
+        return res;
+    }
+};
